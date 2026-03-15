@@ -20,7 +20,7 @@ hachoir
 httplib2
 humanize
 heroku3
-lxml==4.6.3
+lxml>=4.6.5
 oauth2client
 psycopg2-binary
 pybase64>=0.4.0
