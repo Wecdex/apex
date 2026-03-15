@@ -3,7 +3,6 @@ FROM python:3.9-slim
 # Sistem asılılıqları
 RUN apt-get update && apt-get install -y \
     git \
-    neofetch \
     ffmpeg \
     libcairo2-dev \
     && rm -rf /var/lib/apt/lists/*
