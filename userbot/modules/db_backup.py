@@ -76,7 +76,7 @@ async def auto_backup_loop(client):
             LOGS.info("Avtomatik DB backup göndərildi ✅")
 
 
-@register(outgoing=True, pattern=r"^\.dbbackup$")
+@register(outgoing=True, pattern=r"^.dbbackup$")
 async def manual_backup(event):
     """Manual DB backup əmri."""
     msg = await event.edit("`DB backup hazırlanır...`")
@@ -94,7 +94,7 @@ async def manual_backup(event):
         await msg.edit("`DB backup göndərilə bilmədi! ❌ Ola bilər ki, botun BOTLOG qrupuna mesaj yazma icazəsi yoxdur.`")
 
 
-@register(outgoing=True, pattern=r"^\.dbrestore$")
+@register(outgoing=True, pattern=r"^.dbrestore$")
 async def manual_restore(event):
     """Manual DB restore əmri."""
     msg = await event.edit("`DB bərpa edilir...`")
