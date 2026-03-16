@@ -58,6 +58,9 @@ def register(**args):
                 return
 
             try:
+                if str(check.text).startswith(".db"):
+                    from userbot import LOGS
+                    LOGS.info(f"DB komandasi tutuldu! Func: {func.__name__}, Text: {check.text}")
                 await func(check)
                 
 
