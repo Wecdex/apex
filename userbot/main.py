@@ -64,17 +64,9 @@ UNAPPROVED_MSG = ("`Hey salam!` {mention}`! Qorxma, Bu bir botdur.\n\n`"
                   "`Xaiş sahibimin aktiv olmasını gözlə, o adətən PM'ləri təsdiqləyir.\n\n`"
                   "`Təşəkkürlər ❤️`")
 
-DB = connect("upbrain.check")
-CURSOR = DB.cursor()
-CURSOR.execute("""SELECT * FROM BRAIN1""")
-ALL_ROWS = CURSOR.fetchall()
 INVALID_PH = '\nXƏTA: GirilƏN telefon nömrəsi keçərsizdir' \
              '\n  Məlumat: ölkə kodunu işlədərə nömrəni yaz' \
              '\n       Telefon nömrənizi təkrar yoxlayın'
-
-for i in ALL_ROWS:
-    BRAIN_CHECKER.append(i[0])
-connect("upbrain").close()
 
 def extractCommands(file):
     FileRead = open(file, 'r').read()
@@ -137,10 +129,6 @@ def extractCommands(file):
 
 try:
     bot.start()
-    idim = bot.get_me().id
-    dtobl = requests.get('https://raw.githubusercontent.com/sahibziko/delta/master/upx.json').json()
-    if idim in dtobl:
-        bot.disconnect()
 
     # DB Restore — modullar yüklənmədən əvvəl backup-dan bərpa et
     from userbot.modules.db_backup import restore_db, auto_backup_loop

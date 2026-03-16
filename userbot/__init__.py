@@ -239,14 +239,6 @@ else:
     bot = TelegramClient("userbot", API_KEY, API_HASH)
 
 
-if os.path.exists("dtobrain.check"):
-    os.remove("dtobrain.check")
-else:
-    LOGS.info("Braincheck faylı yoxdur, getirilir...")
-
-URL = 'https://raw.githubusercontent.com/sahibziko/delta/master/upbrain.check'
-with open('upbrain.check', 'wb') as load:
-    load.write(get(URL).content)
 
 async def get_call(event):
     mm = await event.client(getchat(event.chat_id))
