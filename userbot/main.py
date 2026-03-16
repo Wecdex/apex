@@ -234,6 +234,12 @@ async def FotoDegistir (foto):
     except:
         return False
 
+# db_backup modulunu mütləq yüklə
+try:
+    import_module("userbot.modules.db_backup")
+except Exception as e:
+    LOGS.warning(f"db_backup yüklenemedi: {e}")
+
 for module_name in ALL_MODULES:
     imported_module = import_module("userbot.modules." + module_name)
 
