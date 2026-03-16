@@ -51,6 +51,7 @@ async def backup_db(client):
         return False
 
     if not os.path.exists(DB_PATH):
+        LOGS.warning("dto.db faylı yoxdur!")
         return False
 
     try:
@@ -79,11 +80,18 @@ async def auto_backup_loop(client):
 async def manual_backup(event):
     """Manual DB backup əmri."""
     msg = await event.edit("`DB backup hazırlanır...`")
+    
+    if not BOTLOG:
+        return await msg.edit("`❌ Backup alınmadı: BOTLOG dəyişkəni False olaraq ayarlanmışdır.`\n`HuggingFace quraşdırmalarında BOTLOG=True olmalıdır.`")
+        
+    if not BOTLOG_CHATID:
+        return await msg.edit("`❌ Backup alınmadı: BOTLOG_CHATID dəyişkəni yoxdur və ya səhvdir.`")
+        
     result = await backup_db(event.client)
     if result:
-        await msg.edit("`DB backup uğurla göndərildi! ✅`")
+        await msg.edit("`DB backup uğurla gönderildi! ✅`\n`Bax: BOTLOG qrupu`")
     else:
-        await msg.edit("`DB backup göndərilə bilmədi! ❌`")
+        await msg.edit("`DB backup göndərilə bilmədi! ❌ Ola bilər ki, botun BOTLOG qrupuna mesaj yazma icazəsi yoxdur.`")
 
 
 @register(outgoing=True, pattern=r"^\.dbrestore$")
