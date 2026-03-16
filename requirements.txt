@@ -61,4 +61,5 @@ psutil
 emoji-country-flag
 cairosvg
 imagedown
+lyricsgenius
 flask
