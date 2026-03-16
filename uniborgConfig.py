@@ -1,6 +1,5 @@
 import os
 from telethon.tl.types import ChatBannedRights
-from pymongo import MongoClient
 
 
 class Config(object):
@@ -126,17 +125,3 @@ class Production(Config):
 
 class Development(Config):
     LOGGER = True
-
-
-# Init Mongo
-MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
-MONGOCLIENT = MongoClient(MONGO_DB_URI, 27017, serverSelectionTimeoutMS=1)
-MONGO = MONGOCLIENT.userbot
-
-
-def is_mongo_alive():
-    try:
-        MONGOCLIENT.server_info()
-    except BaseException as e:
-        print(e)
-        return Fa

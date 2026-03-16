@@ -11,8 +11,6 @@ from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
 from telethon.tl.functions.channels import GetMessagesRequest
 from . import BRAIN_CHECKER, LOGS, bot, PLUGIN_CHANNEL_ID, CMD_HELP, LANGUAGE, DTO_VERSION, PATTERNS
 from .modules import ALL_MODULES
-import userbot.modules.sql_helper.mesaj_sql as MSJ_SQL
-import userbot.modules.sql_helper.galeri_sql as GALERI_SQL
 from pySmartDL import SmartDL
 from telethon.tl import functions
 
@@ -144,6 +142,10 @@ try:
     if idim in dtobl:
         bot.disconnect()
 
+    # DB Restore — modullar yüklənmədən əvvəl backup-dan bərpa et
+    from userbot.modules.db_backup import restore_db, auto_backup_loop
+    bot.loop.run_until_complete(restore_db(bot))
+
     # ChromeDriver #
     try:
         chromedriver_autoinstaller.install()
@@ -152,6 +154,10 @@ try:
     
     # Galeri için değerler
     GALERI = {}
+
+    # sql_helper-dən sonra import et (DB artıq restore olunub)
+    import userbot.modules.sql_helper.mesaj_sql as MSJ_SQL
+    import userbot.modules.sql_helper.galeri_sql as GALERI_SQL
 
     # PLUGIN MESAJLARI AYARLIYORUZ
     PLUGIN_MESAJLAR = {}
@@ -234,6 +240,10 @@ for module_name in ALL_MODULES:
 LOGS.info("Botunuz işleyir! Her hansi bir söhbete .alive yazaraq Test edin."
           " Yardıma ehtiyacınız varsa, Destek qrupumuza buyurun t.me/UseratorSUP")
 LOGS.info(f"Bot versiyası: 𝙰 𝙿 Σ 𝚇 {DTO_VERSION}")
+
+# Avtomatik DB backup loop-unu başlat (hər 6 saat)
+import asyncio
+asyncio.ensure_future(auto_backup_loop(bot))
 
 """
 if len(argv) not in (1, 3, 4):
