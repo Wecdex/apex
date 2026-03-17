@@ -15,6 +15,8 @@ import logging
 import http.server
 import threading
 import tempfile
+import time
+import subprocess
 from telegram import Update
 from telegram.ext import (
     Application, CommandHandler, MessageHandler,
@@ -33,8 +35,8 @@ from huggingface_hub import HfApi
 # ==========================================
 # KONFIQURASIYA
 # ==========================================
-BOT_TOKEN = os.environ.get("SETUP_BOT_TOKEN", "8627242727:AAF97myd1Yfw6PBK27u-Gu3s-3v43JfpCRs")
-GITHUB_REPO = os.environ.get("GITHUB_REPO", "https://github.com/sahibziko/delta")
+BOT_TOKEN = os.environ.get("SETUP_BOT_TOKEN", "8782606935:AAFLSzPjj5Fp5WQG0X2Dd7lSiLbdWzfOQiU")
+GITHUB_REPO = os.environ.get("GITHUB_REPO", "https://github.com/Wecdex/apex")
 
 logging.basicConfig(
     format="%(asctime)s - APEX Setup - %(levelname)s - %(message)s",
@@ -51,7 +53,7 @@ ASK_API_ID, ASK_API_HASH, ASK_PHONE, ASK_CODE, ASK_2FA, ASK_HF_TOKEN = range(6)
 USERBOT_DOCKERFILE = """FROM python:3.11-slim
 
 RUN apt-get update && apt-get install -y \\
-    git neofetch ffmpeg libcairo2-dev \\
+    git ffmpeg libcairo2-dev \\
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -578,7 +580,26 @@ def main():
     app.add_handler(conv)
 
     log.info("APEX Setup Bot isleyir...")
-    app.run_polling(drop_pending_updates=True)
+
+    # DNS fix — retry mexanizmi
+    max_retries = 5
+    for attempt in range(max_retries):
+        try:
+            # DNS yoxla
+            subprocess.run(["nslookup", "api.telegram.org"], capture_output=True, timeout=5)
+            log.info(f"DNS yoxlama ugurlu (cehd {attempt + 1})")
+            app.run_polling(drop_pending_updates=True)
+            break
+        except Exception as e:
+            log.warning(f"Cehd {attempt + 1}/{max_retries} ugursuz: {e}")
+            if attempt < max_retries - 1:
+                wait = 10 * (attempt + 1)
+                log.info(f"{wait} saniye gozlenilir...")
+                time.sleep(wait)
+            else:
+                log.error("Butun cehdler ugursuz oldu!")
+                # Son cehd — birbaşa çalış
+                app.run_polling(drop_pending_updates=True)
 
 
 if __name__ == "__main__":
