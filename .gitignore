@@ -71,3 +71,10 @@ bin/
 *.webm
 *.webp
 !userbot/fonts/*.ttf
+
+# Yaradıcı qeydləri (GitHub-a yüklənmir)
+silinecek/
+
+silinecek/
+
+silinecek/
