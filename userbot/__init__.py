@@ -115,7 +115,7 @@ PM_AUTO_BAN = sb(os.environ.get("PM_AUTO_BAN", "False"))
 # Yenilənmə
 UPSTREAM_REPO_URL = os.environ.get(
     "UPSTREAM_REPO_URL",
-    "https://github.com/sahibziko/delta.git")
+    "https://github.com/Wecdex/apex.git")
 
 # Konsol
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
@@ -297,25 +297,34 @@ async def get_call(event):
     return xx.call
 
 async def check_botlog_chatid():
+    global BOTLOG, LOGSPAMMER
     if not BOTLOG_CHATID and LOGSPAMMER:
         LOGS.info(
-            "Özəl xəta günlüyünün çalışması üçün edilmədən BOTLOG_CHATID dəyişkənini düzəltməniz lazımdır.")
-        quit(1)
+            "⚠️ BOTLOG_CHATID təyin edilməyib. LOGSPAMMER deaktiv edilir.")
+        LOGSPAMMER = False
 
-    elif not BOTLOG_CHATID and BOTLOG:
+    if not BOTLOG_CHATID and BOTLOG:
         LOGS.info(
-            "Günlüyə qeyd etmə özəlliyinin işləməsi üçün BOTLOG_CHATID dəyişkənliyini düzəltməyiniz lazımdır.")
-        quit(1)
-
-    elif not BOTLOG or not LOGSPAMMER:
+            "⚠️ BOTLOG_CHATID təyin edilməyib. BOTLOG deaktiv edilir. "
+            "Aktivləşdirmək üçün BOTLOG_CHATID-i düzgün qrup ID ilə təyin edin.")
+        BOTLOG = False
         return
 
-    entity = await bot.get_entity(BOTLOG_CHATID)
-    if entity.default_banned_rights.send_messages:
+    if not BOTLOG and not LOGSPAMMER:
+        return
+
+    try:
+        entity = await bot.get_entity(BOTLOG_CHATID)
+        if entity.default_banned_rights.send_messages:
+            LOGS.info(
+                "⚠️ BOTLOG_CHATID qrupuna mesaj göndərmə icazəsi yoxdur. "
+                "BOTLOG deaktiv edilir. Qrup ID-ni yoxlayın.")
+            BOTLOG = False
+    except Exception as e:
         LOGS.info(
-            "Hesabınızın BOTLOG_CHATID qrupuna mesaj göndərmə icazəsi yoxdur. "
-            "Qrup ID'sini doğru yazıb yazmadığınızı yoxlayın.")
-        quit(1)
+            f"⚠️ BOTLOG_CHATID ({BOTLOG_CHATID}) etibarsızdır: {e}. "
+            "BOTLOG deaktiv edilir.")
+        BOTLOG = False
         
 if BOT_TOKEN and BOT_TOKEN.strip():
     try:
@@ -492,12 +501,12 @@ Hesabınızı bot'a çevirə bilərsiz və bunları işlədə bilərsiz. Unutmay
 
     try:
         bot.loop.run_until_complete(check_botlog_chatid())
-    except:
+    except Exception as e:
         LOGS.info(
-            "BOTLOG_CHATID ortam dəyişkəni kəçərli bir varlıq deyildir. "
-            "Ortam dəyişkənliyinizi / config.env faylını yoxlayın."
+            f"⚠️ BOTLOG yoxlanışı zamanı xəta: {e}. "
+            "BOTLOG deaktiv edilir."
         )
-        quit(1)
+        BOTLOG = False
 
 
 # Qlobal dəyişkənlər

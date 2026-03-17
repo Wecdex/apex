@@ -74,3 +74,6 @@ bin/
 
 # Yaradıcı qeydləri (GitHub-a yüklənmir)
 silinecek/
+
+# Setup bot (yalnız HuggingFace Space-ə yüklənir)
+setup_bot/
