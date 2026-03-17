@@ -1,4 +1,4 @@
-# U S Σ R Δ T O R
+# APEX Userbot
 # SQLite DB Backup/Restore Sistemi
 
 """
@@ -10,12 +10,19 @@ Hər 6 saatda avtomatik backup göndərir.
 import os
 import asyncio
 import datetime
-from userbot import BOTLOG_CHATID, BOTLOG, LOGS, CMD_HELP
+from userbot import BOTLOG_CHATID, BOTLOG, LOGS, CMD_HELP, DB_URI
 from userbot.events import register
 from telethon.tl.types import InputMessagesFilterDocument
 
-DB_PATH = "dto.db"
-BACKUP_TAG = "#dtodb_backup"
+# DB_URI-dən fayl path-ını avtomatik çıxart
+# sqlite:///apex.db -> apex.db
+# sqlite:///dto.db -> dto.db
+if DB_URI and DB_URI.startswith("sqlite"):
+    DB_PATH = DB_URI.split("///")[-1]
+else:
+    DB_PATH = "apex.db"
+
+BACKUP_TAG = "#apexdb_backup"
 
 
 async def restore_db(client):
@@ -46,12 +53,12 @@ async def restore_db(client):
 
 
 async def backup_db(client):
-    """dto.db faylını BOTLOG qrupuna göndərir."""
+    """apx.db faylını BOTLOG qrupuna göndərir."""
     if not BOTLOG or not BOTLOG_CHATID:
         return False
 
     if not os.path.exists(DB_PATH):
-        LOGS.warning("dto.db faylı yoxdur!")
+        LOGS.warning(f"{DB_PATH} faylı yoxdur!")
         return False
 
     try:

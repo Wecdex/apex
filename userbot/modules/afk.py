@@ -126,7 +126,7 @@ async def mention_afk(mention):
                             last_seen=last_seen,
                             last_seen_long=last_seen_long
                             ) \
-                                + f"\{LANG['REASON']}: `{AFKREASON}`")
+                                + f"{LANG['REASON']}: `{AFKREASON}`")
                         else:
                             msj = await mention.reply(PLUGIN_MESAJLAR['afk'])
                             await msj.reply(f"{LANG['REASON']}: `{AFKREASON}`")

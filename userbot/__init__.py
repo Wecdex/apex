@@ -8,10 +8,22 @@ import time
 from re import compile
 from sys import version_info
 from logging import basicConfig, getLogger, INFO, DEBUG
-from distutils.util import strtobool as sb
-from pylast import LastFMNetwork, md5
-from pySmartDL import SmartDL
-from dotenv import load_dotenv
+def sb(val):
+    """strtobool replacement (distutils removed in Python 3.13+)"""
+    return str(val).lower() in ("1", "true", "yes", "on")
+try:
+    from pylast import LastFMNetwork, md5
+except ImportError:
+    LastFMNetwork = None
+    md5 = lambda x: x
+try:
+    from pySmartDL import SmartDL
+except ImportError:
+    SmartDL = None
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    load_dotenv = lambda *a, **kw: None
 from requests import get
 from telethon.tl.functions.channels import GetFullChannelRequest as getchat
 from telethon.tl.functions.phone import GetGroupCallRequest as getvc
@@ -32,11 +44,11 @@ ASYNC_POOL = []
 
 if CONSOLE_LOGGER_VERBOSE:
     basicConfig(
-        format="%(asctime)s - @UseratorOT - %(levelname)s - %(message)s",
+        format="%(asctime)s - @ApexOT - %(levelname)s - %(message)s",
         level=DEBUG,
     )
 else:
-    basicConfig(format="%(asctime)s - @UseratorOT - %(levelname)s - %(message)s",
+    basicConfig(format="%(asctime)s - @ApexOT - %(levelname)s - %(message)s",
                 level=INFO)
 LOGS = getLogger(__name__)
 
@@ -45,7 +57,7 @@ if version_info[0] < 3 or version_info[1] < 6:
               "Birdən çox özəllik buna bağlıdır. Bot söndürülür.")
     quit(1)
 
-# DTÖUserBot
+# APEX Userbot
 # Config
 CONFIG_CHECK = os.environ.get(
     "___________XAİŞ_______BU_____SETİRİ_____SILIN__________", None)
@@ -63,24 +75,33 @@ if not LANGUAGE in ["EN", "TR", "AZ", "UZ", "DEFAULT"]:
     LOGS.info("Bilinməyən bir dil seçdiniz. Buna görə DEFAULT işlədilir.")
     LANGUAGE = "DEFAULT"
     
-# DTÖ Versiyası
-DTO_VERSION = "3.1"
+# APEX Versiyası
+APEX_VERSION = "3.1"
 
 # Telegram API KEY ve HASH
-API_KEY = os.environ.get("API_KEY", None)
+_api_key_raw = os.environ.get("API_KEY", None)
+try:
+    API_KEY = int(_api_key_raw) if _api_key_raw else None
+except (ValueError, TypeError):
+    API_KEY = None
 API_HASH = os.environ.get("API_HASH", None)
 
 try:
-    SUDO_ID = set(int(x) for x in os.environ.get("SUDO_ID", "").split())
-except ValueError:
-    raise Exception("Dəyər daxil etməlisiz!")
+    _sudo_raw = os.environ.get("SUDO_ID", "").strip()
+    SUDO_ID = set(int(x) for x in _sudo_raw.split() if x.strip())
+except (ValueError, TypeError):
+    SUDO_ID = set()
 
 SILINEN_PLUGIN = {}
 # UserBot Session String
 STRING_SESSION = os.environ.get("STRING_SESSION", None)
 
 # Kanal / Qrup ID
-BOTLOG_CHATID = int(os.environ.get("BOTLOG_CHATID", None))
+_botlog_raw = os.environ.get("BOTLOG_CHATID", None)
+try:
+    BOTLOG_CHATID = int(_botlog_raw) if _botlog_raw else 0
+except (ValueError, TypeError):
+    BOTLOG_CHATID = 0
 
 # Günlük
 BOTLOG = sb(os.environ.get("BOTLOG", "False"))
@@ -89,10 +110,7 @@ LOGSPAMMER = sb(os.environ.get("LOGSPAMMER", "False"))
 # PM
 PM_AUTO_BAN = sb(os.environ.get("PM_AUTO_BAN", "False"))
 
-# Heroku
-HEROKU_MEMEZ = sb(os.environ.get("HEROKU_MEMEZ", "False"))
-HEROKU_APPNAME = os.environ.get("HEROKU_APPNAME", None)
-HEROKU_APIKEY = os.environ.get("HEROKU_APIKEY", None)
+
 
 # Yenilənmə
 UPSTREAM_REPO_URL = os.environ.get(
@@ -103,7 +121,7 @@ UPSTREAM_REPO_URL = os.environ.get(
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
 
 # SQL
-DB_URI = os.environ.get("DATABASE_URL", "sqlite:///dto.db")
+DB_URI = os.environ.get("DATABASE_URL", "sqlite:///apex.db")
 
 # OCR API key
 OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
@@ -172,12 +190,18 @@ LASTFM_API = os.environ.get("LASTFM_API", None)
 LASTFM_SECRET = os.environ.get("LASTFM_SECRET", None)
 LASTFM_USERNAME = os.environ.get("LASTFM_USERNAME", None)
 LASTFM_PASSWORD_PLAIN = os.environ.get("LASTFM_PASSWORD", None)
-LASTFM_PASS = md5(LASTFM_PASSWORD_PLAIN)
-if LASTFM_API and LASTFM_SECRET and LASTFM_USERNAME and LASTFM_PASS:
-    lastfm = LastFMNetwork(api_key=LASTFM_API,
-                           api_secret=LASTFM_SECRET,
-                           username=LASTFM_USERNAME,
-                           password_hash=LASTFM_PASS)
+try:
+    LASTFM_PASS = md5(LASTFM_PASSWORD_PLAIN) if LASTFM_PASSWORD_PLAIN else None
+except Exception:
+    LASTFM_PASS = None
+if LastFMNetwork and LASTFM_API and LASTFM_SECRET and LASTFM_USERNAME and LASTFM_PASS:
+    try:
+        lastfm = LastFMNetwork(api_key=LASTFM_API,
+                               api_secret=LASTFM_SECRET,
+                               username=LASTFM_USERNAME,
+                               password_hash=LASTFM_PASS)
+    except Exception:
+        lastfm = None
 else:
     lastfm = None
 
@@ -212,7 +236,7 @@ PATTERNS = os.environ.get("PATTERNS", ".,")
 WHITELIST = [1419590194, 5105666086, 723397979]
 
 # Təhlükəli pluginlər üçün
-TEHLUKELI = ["SESSION", "HEROKU_APIKEY", "API_HASH", "API_KEY", "\.session\.save", "EditBannedRequest", "ChatBannedRights", "kick_participiant", "UploadProfilePhotoRequest", "ChatAdminRights", "EditAdminRequest", "\.revert", "\.klon", "\.UpdateProfileRequest"]
+TEHLUKELI = ["SESSION", "API_HASH", "API_KEY", r"\.session\.save", "EditBannedRequest", "ChatBannedRights", "kick_participiant", "UploadProfilePhotoRequest", "ChatAdminRights", "EditAdminRequest", r"\.revert", r"\.klon", r"\.UpdateProfileRequest"]
 
 # CloudMail.ru və MEGA.nz
 if not os.path.exists('bin'):
@@ -226,11 +250,38 @@ binaries = {
 }
 
 for binary, path in binaries.items():
-    downloader = SmartDL(binary, path, progress_bar=False)
-    downloader.start()
-    os.chmod(path, 0o755)
+    try:
+        if SmartDL and not os.path.exists(path):
+            downloader = SmartDL(binary, path, progress_bar=False)
+            downloader.start()
+            if os.name != 'nt':  # Windows-da chmod lazım deyil
+                os.chmod(path, 0o755)
+    except Exception as e:
+        LOGS.warning(f"Binary yüklənə bilmədi: {path} — {e}")
 
 # 'bot' dəyişkəni
+# Python 3.14+ event loop fix
+import asyncio
+try:
+    asyncio.get_running_loop()
+except RuntimeError:
+    try:
+        loop = asyncio.get_event_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+# Session Manager — STRING_SESSION boşdursa avtomatik yarat
+if not STRING_SESSION or not STRING_SESSION.strip():
+    LOGS.info("STRING_SESSION tapılmadı. Yeni session yaradılır...")
+    from userbot.session_manager import get_or_create_session
+    STRING_SESSION = get_or_create_session(API_KEY, API_HASH, STRING_SESSION)
+    
+    # Session yaradıldıqdan sonra botu yenidən başlatmaq lazımdır
+    LOGS.info("Session yaradıldı. Botu yenidən başlatın: python app.py")
+    import sys
+    sys.exit(0)
+
 if STRING_SESSION:
     # pylint: devre dışı=geçersiz ad
     bot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
@@ -266,14 +317,20 @@ async def check_botlog_chatid():
             "Qrup ID'sini doğru yazıb yazmadığınızı yoxlayın.")
         quit(1)
         
-if not BOT_TOKEN == None:
-    tgbot = TelegramClient(
-        "TG_BOT_TOKEN",
-        api_id=API_KEY,
-        api_hash=API_HASH
-    ).start(bot_token=BOT_TOKEN)
+if BOT_TOKEN and BOT_TOKEN.strip():
+    try:
+        tgbot = TelegramClient(
+            "TG_BOT_TOKEN",
+            api_id=API_KEY,
+            api_hash=API_HASH
+        ).start(bot_token=BOT_TOKEN)
+        LOGS.info("Inline bot aktivləşdirildi.")
+    except Exception as e:
+        LOGS.warning(f"Inline bot başladıla bilmədi: {e}")
+        tgbot = None
 else:
     tgbot = None
+    LOGS.info("BOT_TOKEN yoxdur, inline bot deaktivdir.")
 
 def butonlastir(sayfa, moduller):
     Satir = 5
@@ -311,7 +368,7 @@ with bot:
         @tgbot.on(NewMessage(pattern='/start'))
         async def start_bot_handler(event):
             if not event.message.from_id == uid:
-                await event.reply(f'`Salam mən ` @apexuserbot`! Mən sahibimə (`@{me.username}`) kömək olmaq üçün varam, yəni sənə köməkçi ola bilmərəm :/ Ama sən da bir DTÖUserBot quraşdıra bilərsən; Kanala bax` @DTOUserBot')
+                await event.reply(f'`Salam mən ` @apexuserbot`! Mən sahibimə (`@{me.username}`) kömək olmaq üçün varam, yəni sənə köməkçi ola bilmərəm :/ Ama sən də bir APEX Userbot quraşdıra bilərsən; Kanala bax` @apexuserbot')
             else:
                 await event.reply(f'`𝙰 𝙿 Σ 𝚇`')
 
@@ -320,7 +377,7 @@ with bot:
             builder = event.builder
             result = None
             query = event.text
-            if event.query.user_id == uid and query == "@UseratorOT":
+            if event.query.user_id == uid and query == "@ApexOT":
                 rev_text = query[::-1]
                 veriler = (butonlastir(0, sorted(CMD_HELP)))
                 result = await builder.article(
@@ -354,19 +411,19 @@ Hesabınızı bot'a çevirə bilərsiz və bunları işlədə bilərsiz. Unutmay
                 )
             await event.answer([result] if result else None)
 
-        @tgbot.on(callbackquery.CallbackQuery(data=compile(b"sayfa\((.+?)\)")))
+        @tgbot.on(callbackquery.CallbackQuery(data=compile(rb"sayfa\((.+?)\)")))
         async def sayfa(event):
             if not event.query.user_id == uid: 
                 return await event.answer("❌ Hey! Mənim mesajlarımı düzəltməyə çalışma! Özünə bir @apexuserbot qur.", cache_time=0, alert=True)
             sayfa = int(event.data_match.group(1).decode("UTF-8"))
             veriler = butonlastir(sayfa, CMD_HELP)
             await event.edit(
-                f"**𝙰 𝙿 Σ 𝚇** [UseratorOT](https://t.me/UseratorOT) __işləyir__\n\n**Yüklənən Modul Sayı:** `{len(CMD_HELP)}`\n**Səhifə:** {sayfa + 1}/{veriler[0]}",
+                f"**𝙰 𝙿 Σ 𝚇** [ApexOT](https://t.me/ApexOT) __işləyir__\n\n**Yüklənən Modul Sayı:** `{len(CMD_HELP)}`\n**Səhifə:** {sayfa + 1}/{veriler[0]}",
                 buttons=veriler[1],
                 link_preview=False
             )
         
-        @tgbot.on(callbackquery.CallbackQuery(data=compile(b"bilgi\[(\d*)\]\((.*)\)")))
+        @tgbot.on(callbackquery.CallbackQuery(data=compile(rb"bilgi\[(\d*)\]\((.*)\)")))
         async def bilgi(event):
             if not event.query.user_id == uid: 
                 return await event.answer("❌  Hey! Mənim mesajlarımı düzəltməyə çalışma! Özünə bir @apexuserbot qur.", cache_time=0, alert=True)
@@ -386,7 +443,7 @@ Hesabınızı bot'a çevirə bilərsiz və bunları işlədə bilərsiz. Unutmay
                 link_preview=False
             )
         
-        @tgbot.on(callbackquery.CallbackQuery(data=compile(b"komut\[(.*)\[(\d*)\]\]\((.*)\)")))
+        @tgbot.on(callbackquery.CallbackQuery(data=compile(rb"komut\[(.*)\[(\d*)\]\]\((.*)\)")))
         async def komut(event):
             if not event.query.user_id == uid: 
                 return await event.answer("❌ Hey! Mənim mesajlarımı düzəltməyə çalışma! Özünə bir @apexuserbot qur.", cache_time=0, alert=True)

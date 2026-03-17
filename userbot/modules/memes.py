@@ -479,7 +479,7 @@ async def slap(replied_user, event):
     hit = choice(HIT)
     throw = choice(THROW)
 
-    caption = "DTÖUserBot " + temp.format(
+    caption = "APEX " + temp.format(
         victim=slapped, item=item, hits=hit, throws=throw)
 
     return caption

@@ -13,7 +13,10 @@ class PMPermit(BASE):
         self.chat_id = str(chat_id)  # ensure string
 
 
-PMPermit.__table__.create(checkfirst=True)
+try:
+    PMPermit.__table__.create(bind=SESSION.get_bind(), checkfirst=True)
+except Exception:
+    pass
 
 
 def is_approved(chat_id):

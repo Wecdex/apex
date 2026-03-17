@@ -24,7 +24,10 @@ class Filters(BASE):
             and self.keyword == other.keyword)
 
 
-Filters.__table__.create(checkfirst=True)
+try:
+    Filters.__table__.create(bind=SESSION.get_bind(), checkfirst=True)
+except Exception:
+    pass
 
 
 def get_filter(chat_id, keyword):

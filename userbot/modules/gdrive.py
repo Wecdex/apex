@@ -229,10 +229,10 @@ async def show_current_gdrove_folder(event):
     if parent_id:
         folder_link = f"https://drive.google.com/drive/folders/" + parent_id
         await event.edit(
-            f"DTÖUserBot'um faylları [buraya]({folder_link}) uploadlıyır.")
+            f"APEX faylları [buraya]({folder_link}) uploadlıyır.")
     else:
         await event.edit(
-            f"DTÖUserBot'um faylları Google Drive'ın kök qovluğuna uploadlıyır.\
+            f"APEX faylları Google Drive'ın kök qovluğuna uploadlıyır.\
             \nUploadlanan fayllar [burada](https://drive.google.com/drive/my-drive)"
         )
 

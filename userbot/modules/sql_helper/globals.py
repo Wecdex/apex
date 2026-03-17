@@ -16,7 +16,10 @@ class Globals(BASE):
         self.value = value
 
 
-Globals.__table__.create(checkfirst=True)
+try:
+    Globals.__table__.create(bind=SESSION.get_bind(), checkfirst=True)
+except Exception:
+    pass
 
 
 def gvarstatus(variable):

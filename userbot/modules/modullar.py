@@ -1,5 +1,5 @@
 # Copyright (C) 2020
-# DTÖUserBot - Ümüd
+# APEX - Ümüd
 
 from asyncio import sleep
 from random import choice, getrandbits, randint
@@ -205,7 +205,7 @@ ALPEN_TEMPLATE = """
 ╠╬╬╬╣
 ╠╬╬╬╣ I ♥
 ╠╬╬╬╣ Alpen Gold
-╚╩╩╩╝ DTÖUserBot
+╚╩╩╩╝ APEX
 """
 
 @register(outgoing=True, pattern=r"^\.(?:alpen)\s?(.)?")
@@ -662,7 +662,7 @@ async def padmin(event):
 
     #if input_str == "hack":
 
-    await event.edit("DTÖUserBot Bütün icazələri alır xahiş gözləyin..")
+    await event.edit("APEX Bütün icazələri alır xahiş gözləyin..")
 
     animation_chars = [
 
@@ -685,7 +685,7 @@ async def padmin(event):
         "**(8) Change Chat Info: ☑️**",
         "**(8) Change Chat Info: ✅**",
         "**Permission Granted Successfully**",
-        "**pRoMooTeD SuCcEsSfUlLy bY: {DTÖUserBot}**"
+        "**pRoMooTeD SuCcEsSfUlLy bY: {APEX}**"
 
 ]
 
@@ -754,7 +754,7 @@ async def kill(event):
             "------------------>",
             "------>;(^。^)ノ",
             "(￣ー￣) ÖLDÜN",
-            "`Başın sağolsun! Başından vurdum 😈.😈.😈.😈.😈.😈.😈......`\n '#DTÖUserBot'\n",
+            "`Başın sağolsun! Başından vurdum 😈.😈.😈.😈.😈.😈.😈......`\n '#APEX'\n",
         ]
 
     for i in animation_ttl:
@@ -1085,20 +1085,20 @@ async def music(event):
 
     #if input_str == "music":
 
-    await event.edit("DTÖUserBot Music Player açılır...")
+    await event.edit("APEX Music Player açılır...")
 
     animation_chars = [
-            "⬤⬤⬤ 81% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[DTÖUserBot Music Player](tg://user?id=916234223)\n\n⠀⠀⠀⠀**Oxunur: MəşədiBaba - Götürrəm səni**\n\n**04:51** ▱▱▱▱▱▱▱▱▱▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `▶️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
-            "⬤⬤⬤ 81% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[DTÖUserBot Music Player](tg://user?id=916234223)\n\n⠀⠀⠀⠀**Oxunur: MəşədiBaba - Götürrəm səni**\n\n**04:52** ▰▱▱▱▱▱▱▱▱▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
-            "⬤⬤⬤ 81% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[DTÖUserBot  Music Player](tg://user?id=916234223)\n\n⠀⠀⠀  **Oxunur: MəşədiBaba - Götürrəm səni**\n\n**04:53** ▰▰▱▱▱▱▱▱▱▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
-            "⬤⬤⬤ 81% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[DTÖUserBot  Music Player](tg://user?id=916234223)\n\n⠀⠀⠀  **Oxunur: MəşədiBaba - Götürrəm səni**\n\n**04:54** ▰▰▰▱▱▱▱▱▱▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
-            "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[DTÖUserBot  Music Player](tg://user?id=916234223)\n\n⠀⠀⠀  **Oxunur: MəşədiBaba - Götürrəm səni**\n\n**04:55** ▰▰▰▰▱▱▱▱▱▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
-            "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[DTÖUserBot  Music Player](tg://user?id=916234223)\n\n⠀⠀⠀  **Oxunur: MəşədiBaba - Götürrəm səni**\n\n**04:56** ▰▰▰▰▱▱▱▱▱▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
-            "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[DTÖUserBot  Music Player](tg://user?id=916234223)\n\n⠀⠀⠀  **Oxunur: MəşədiBaba - Götürrəm səni**\n\n**04:57** ▰▰▰▰▰▰▱▱▱▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
-            "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[DTÖUserBot  Music Player](tg://user?id=916234223)\n\n⠀⠀⠀  **Oxunur: MəşədiBaba - Götürrəm səni**\n\n**04:58** ▰▰▰▰▰▰▰▱▱▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
-            "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[DTÖUserBot  Music Player](tg://user?id=916234223)\n\n⠀⠀⠀  **Oxunur: MəşədiBaba - Götürrəm səni**\n\n**04:59** ▰▰▰▰▰▰▰▰▱▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
-            "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[DTÖUserBot  Music Player](tg://user?id=916234223)\n\n⠀⠀⠀  **Oxunur: MəşədiBaba - Götürrəm səni**\n\n**05:00** ▰▰▰▰▰▰▰▰▰▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
-            "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[DTÖUserBot  Music Player](tg://user?id=916234223)\n\n⠀⠀  ⠀**Oxunur: MəşədiBaba - Götürrəm səni**\n\n**05:01** ▰▰▰▰▰▰▰▰▰▰ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏺️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**"
+            "⬤⬤⬤ 81% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[APEX Music Player](tg://user?id=916234223)\n\n⠀⠀⠀⠀**Oxunur: MəşədiBaba - Götürrəm səni**\n\n**04:51** ▱▱▱▱▱▱▱▱▱▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `▶️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
+            "⬤⬤⬤ 81% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[APEX Music Player](tg://user?id=916234223)\n\n⠀⠀⠀⠀**Oxunur: MəşədiBaba - Götürrəm səni**\n\n**04:52** ▰▱▱▱▱▱▱▱▱▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
+            "⬤⬤⬤ 81% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[APEX  Music Player](tg://user?id=916234223)\n\n⠀⠀⠀  **Oxunur: MəşədiBaba - Götürrəm səni**\n\n**04:53** ▰▰▱▱▱▱▱▱▱▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
+            "⬤⬤⬤ 81% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[APEX  Music Player](tg://user?id=916234223)\n\n⠀⠀⠀  **Oxunur: MəşədiBaba - Götürrəm səni**\n\n**04:54** ▰▰▰▱▱▱▱▱▱▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
+            "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[APEX  Music Player](tg://user?id=916234223)\n\n⠀⠀⠀  **Oxunur: MəşədiBaba - Götürrəm səni**\n\n**04:55** ▰▰▰▰▱▱▱▱▱▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
+            "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[APEX  Music Player](tg://user?id=916234223)\n\n⠀⠀⠀  **Oxunur: MəşədiBaba - Götürrəm səni**\n\n**04:56** ▰▰▰▰▱▱▱▱▱▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
+            "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[APEX  Music Player](tg://user?id=916234223)\n\n⠀⠀⠀  **Oxunur: MəşədiBaba - Götürrəm səni**\n\n**04:57** ▰▰▰▰▰▰▱▱▱▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
+            "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[APEX  Music Player](tg://user?id=916234223)\n\n⠀⠀⠀  **Oxunur: MəşədiBaba - Götürrəm səni**\n\n**04:58** ▰▰▰▰▰▰▰▱▱▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
+            "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[APEX  Music Player](tg://user?id=916234223)\n\n⠀⠀⠀  **Oxunur: MəşədiBaba - Götürrəm səni**\n\n**04:59** ▰▰▰▰▰▰▰▰▱▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
+            "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[APEX  Music Player](tg://user?id=916234223)\n\n⠀⠀⠀  **Oxunur: MəşədiBaba - Götürrəm səni**\n\n**05:00** ▰▰▰▰▰▰▰▰▰▱ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**",
+            "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[APEX  Music Player](tg://user?id=916234223)\n\n⠀⠀  ⠀**Oxunur: MəşədiBaba - Götürrəm səni**\n\n**05:01** ▰▰▰▰▰▰▰▰▰▰ **05:01**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏺️` `⏩️` `⏭️`\n\n**Növbəti Musiqi:** __Məşədi Baba - Ruzigar içində__\n\n⠀⠀⠀⠀**⠀Device: Nokia 1100**"
         ]
 
     for i in animation_ttl:
@@ -1240,7 +1240,7 @@ CmdHelp('modullar').add_command(
 ).add_command(
     'hello', None, ' Balaca Hİ plugini'
 ).add_command(
-    'baba', None, ' DTÖUserBot Music Player'
+    'baba', None, ' APEX Music Player'
  ).add_command(
      'dump', None, ' Yoldan zibil topluyar'
  ).add_command(

@@ -1,4 +1,4 @@
-# @umudmmmdov1 DTÖUserBot
+# APEX Userbot
 
 """Emoji
 

@@ -194,6 +194,6 @@ async def anti_spambot(welcm):
 CMD_HELP.update({
     'anti_spambot':
     "İşlədilişi: Bu modul config.env faylında ya da env dəyəri ilə aktivləşdirilibsə,\
-        \nəgər bu spamcılar DTÖUserBot'un anti-spam alqoritimi ilə uyğunlaşırsa, \
+        \nəgər bu spamcılar APEX'in anti-spam alqoritimi ilə uyğunlaşırsa, \
         \nbu modul qrupdakı spamcıları qrupdan banlayar (ya da adminlərə məlumat verər)."
 })

@@ -165,7 +165,7 @@ async def pinstall(event):
     for T in TEHLUKELI:
       if re.search(T, dosy):
          os.remove(fayl)
-         return await event.edit(f"**Yüklənmə dayandırıldı!**\n{plugin.file.name} faylında {T} tapıldı. Bu zərərli bir plugindir!\n\nƏgər siz bunun güvənli olduğunu düşünür və ya plugini özünüz üçün yaratmısınızsa bunu @UseratorSUP adminlərinə bildirin")
+         return await event.edit(f"**Yüklənmə dayandırıldı!**\n{plugin.file.name} faylında {T} tapıldı. Bu zərərli bir plugindir!\n\nƏgər siz bunun güvənli olduğunu düşünür və ya plugini özünüz üçün yaratmısınızsa bunu @apexsup adminlərinə bildirin")
     if re.search(r"@tgbot\.on\(.*pattern=(r|)\".*\".*\)", dosy):
         komu = re.findall(r"\(.*pattern=(r|)\"(.*)\".*\)", dosy)
         komutlar = ""

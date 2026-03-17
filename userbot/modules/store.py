@@ -25,14 +25,14 @@ async def magaza(event):
     split = plugin.split()
     if plugin == '':
         plugin = 'Son yüklənən'
-        plugins = await event.client.get_messages('@dtoplugin', limit=15, filter=InputMessagesFilterDocument)
+        plugins = await event.client.get_messages('@apexplugin', limit=15, filter=InputMessagesFilterDocument)
     elif len(split) >= 1 and (split[0] == 'random' or split[0] == 'rastgele'):
         plugin = 'Təsadufi'
-        plugins = await event.client.get_messages('@dtoplugin', limit=None, filter=InputMessagesFilterDocument)
+        plugins = await event.client.get_messages('@apexplugin', limit=None, filter=InputMessagesFilterDocument)
         plugins = sample(plugins, int(split[1]) if len(split) == 2 else 5)
     else:
-        plugins = await event.client.get_messages('@dtoplugin', limit=None, search=plugin, filter=InputMessagesFilterDocument)
-        random = await event.client.get_messages('@dtoplugin', limit=None, filter=InputMessagesFilterDocument)
+        plugins = await event.client.get_messages('@apexplugin', limit=None, search=plugin, filter=InputMessagesFilterDocument)
+        random = await event.client.get_messages('@apexplugin', limit=None, filter=InputMessagesFilterDocument)
         random = choice(random)
         random_file = random.file.name
 
@@ -62,7 +62,7 @@ async def sinstall(event):
         return await event.edit('**𝙰 𝙿 Σ 𝚇 - Plugin Mağazası**\n__Versiya 1.0__\n\n**⚠️ Xəta:** `Xaiş sadəcə rəqəm yazın. Əgəe Plugin axtarmaq istəyirsizsə .store əmrini işlədin.`')
     
     await event.edit('**𝙰 𝙿 Σ 𝚇 - Plugin Mağazası**\n\n`🔎 Plugin\'i gətirirəm... Xaiş biraz gözlə.`')
-    plugin = await event.client.get_messages('@dtoplugin', ids=plugin)
+    plugin = await event.client.get_messages('@apexplugin', ids=plugin)
     await event.edit(f'**𝙰 𝙿 Σ 𝚇 - Plugin Mağazası**\n\n`✅ {plugin.file.name} plugini gətirildi!`\n`⬇️ Plugini yükləyirəm... Xaiş gözləyin.`')
     dosya = await plugin.download_media('./userbot/modules/')
     await event.edit(f'**𝙰 𝙿 Σ 𝚇 - Plugin Mağazası**\n\n`✅ {plugin.file.name} yüklənmə uğurlu oldu!`\n`⬇️ Plugini yükləyirəm... Xaiş gözləyin.`')
@@ -106,7 +106,7 @@ async def sinstall(event):
                     Command = Command[1]
                     if Command == '' or len(Command) <= 1:
                         continue
-                    Komut = re.findall("([^.].*\w)(\W*)", Command)
+                    Komut = re.findall(r"([^.].*\w)(\W*)", Command)
                     if (len(Komut[0]) > 1) and (not Komut[0][1] == ''):
                         KomutStr = Command.replace(Komut[0][1], '')
                         if KomutStr[0] == '^':
@@ -123,8 +123,8 @@ async def sinstall(event):
                             KomutStr = Command
                         Komutlar.append(KomutStr)
 
-                # DtoPY
-                Dtopy = re.search('\"\"\"DTOPY(.*)\"\"\"', dosy, re.DOTALL)
+                # ApexPY
+                Dtopy = re.search('\"\"\"APEXPY(.*)\"\"\"', dosy, re.DOTALL)
                 if not Dtopy == None:
                     Dtopy = Dtopy.group(0)
                     for Satir in Dtopy.splitlines():

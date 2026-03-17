@@ -16,7 +16,10 @@ class Mute(BASE):
         self.sender = str(sender)
 
 
-Mute.__table__.create(checkfirst=True)
+try:
+    Mute.__table__.create(bind=SESSION.get_bind(), checkfirst=True)
+except Exception:
+    pass
 
 
 def is_muted(chat_id):

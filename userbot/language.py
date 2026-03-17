@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 #
 
-# DTÖUserBot - Ümüd
+# APEX Userbot
 
 from . import LANGUAGE, LOGS, bot, PLUGIN_CHANNEL_ID
 from json import loads, JSONDecodeError
@@ -16,42 +16,42 @@ LOGS.info("Dil faylı yüklənir...")
 LANGUAGE_JSON = None
 
 for dil in bot.iter_messages(pchannel, filter=InputMessagesFilterDocument):
-    if ((len(dil.file.name.split(".")) >= 2) and (dil.file.name.split(".")[1] == "dtojson")):
+    if dil.file and dil.file.name and ((len(dil.file.name.split(".")) >= 2) and (dil.file.name.split(".")[1] == "apexjson")):
         if path.isfile(f"./userbot/language/{dil.file.name}"):
             try:
-                LANGUAGE_JSON = loads(open(f"./userbot/language/{dil.file.name}", "r").read())
+                LANGUAGE_JSON = loads(open(f"./userbot/language/{dil.file.name}", "r", encoding="utf-8").read())
             except JSONDecodeError:
                 dil.delete()
                 remove(f"./userbot/language/{dil.file.name}")
 
-                if path.isfile("./userbot/language/DEFAULT.dtojson"):
+                if path.isfile("./userbot/language/DEFAULT.apexjson"):
                     LOGS.warn("Həmişəki dil işlədilir...")
-                    LANGUAGE_JSON = loads(open(f"./userbot/language/DEFAULT.dtojson", "r").read())
+                    LANGUAGE_JSON = loads(open(f"./userbot/language/DEFAULT.apexjson", "r", encoding="utf-8").read())
                 else:
                     raise Exception("Your language file is invalid")
         else:
             try:
                 DOSYA = dil.download_media(file="./userbot/language/")
-                LANGUAGE_JSON = loads(open(DOSYA, "r").read())
+                LANGUAGE_JSON = loads(open(DOSYA, "r", encoding="utf-8").read())
             except JSONDecodeError:
                 dil.delete()
-                if path.isfile("./userbot/language/DEFAULT.dtojson"):
+                if path.isfile("./userbot/language/DEFAULT.apexjson"):
                     LOGS.warn("Həmişəki dil işlədilir...")
-                    LANGUAGE_JSON = loads(open(f"./userbot/language/DEFAULT.dtojson", "r").read())
+                    LANGUAGE_JSON = loads(open(f"./userbot/language/DEFAULT.apexjson", "r", encoding="utf-8").read())
                 else:
                     raise Exception("Your language file is invalid")
         break
 
 if LANGUAGE_JSON == None:
-    if path.isfile(f"./userbot/language/{LANGUAGE}.dtojson"):
+    if path.isfile(f"./userbot/language/{LANGUAGE}.apexjson"):
         try:
-            LANGUAGE_JSON = loads(open(f"./userbot/language/{LANGUAGE}.dtojson", "r").read())
+            LANGUAGE_JSON = loads(open(f"./userbot/language/{LANGUAGE}.apexjson", "r", encoding="utf-8").read())
         except JSONDecodeError:
             raise Exception("Invalid json file")
     else:
-        if path.isfile("./userbot/language/DEFAULT.dtojson"):
+        if path.isfile("./userbot/language/DEFAULT.apexjson"):
             LOGS.warn("Həmişəki dil işlədilir...")
-            LANGUAGE_JSON = loads(open(f"./userbot/language/DEFAULT.dtojson", "r").read())
+            LANGUAGE_JSON = loads(open(f"./userbot/language/DEFAULT.apexjson", "r", encoding="utf-8").read())
         else:
             raise Exception(f"Didn't find {LANGUAGE} file")
 

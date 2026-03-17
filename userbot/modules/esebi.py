@@ -5,7 +5,7 @@
 from telethon import events
 import asyncio
 from userbot.events import register
-from userbot import DTO_VERSION
+from userbot import APEX_VERSION
 from userbot.cmdhelp import CmdHelp
 
 @register(outgoing=True, pattern="^.esebi (.*)")

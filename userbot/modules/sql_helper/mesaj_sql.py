@@ -24,7 +24,10 @@ class Mesajlar(BASE):
                     and self.mesaj == other.mesaj)
 
 
-Mesajlar.__table__.create(checkfirst=True)
+try:
+    Mesajlar.__table__.create(bind=SESSION.get_bind(), checkfirst=True)
+except Exception:
+    pass
 
 KOMUT_INSERTION_LOCK = threading.RLock()
 

@@ -9,13 +9,19 @@ import requests
 from telethon.tl.types import InputMessagesFilterDocument
 from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
 from telethon.tl.functions.channels import GetMessagesRequest
-from . import BRAIN_CHECKER, LOGS, bot, PLUGIN_CHANNEL_ID, CMD_HELP, LANGUAGE, DTO_VERSION, PATTERNS
+from . import BRAIN_CHECKER, LOGS, bot, PLUGIN_CHANNEL_ID, CMD_HELP, LANGUAGE, APEX_VERSION, PATTERNS
 from .modules import ALL_MODULES
-from pySmartDL import SmartDL
+try:
+    from pySmartDL import SmartDL
+except ImportError:
+    SmartDL = None
 from telethon.tl import functions
 
 from random import choice
-import chromedriver_autoinstaller
+try:
+    import chromedriver_autoinstaller
+except ImportError:
+    chromedriver_autoinstaller = None
 from json import loads, JSONDecodeError
 import re
 import userbot.cmdhelp
@@ -69,7 +75,7 @@ INVALID_PH = '\nXƏTA: GirilƏN telefon nömrəsi keçərsizdir' \
              '\n       Telefon nömrənizi təkrar yoxlayın'
 
 def extractCommands(file):
-    FileRead = open(file, 'r').read()
+    FileRead = open(file, 'r', encoding='utf-8').read()
     
     if '/' in file:
         file = file.split('/')[-1]
@@ -88,7 +94,7 @@ def extractCommands(file):
             Command = Command[1]
             if Command == '' or len(Command) <= 1:
                 continue
-            Komut = re.findall("(^.*[a-zA-Z0-9şğüöçı]\w)", Command)
+            Komut = re.findall(r"(^.*[a-zA-Z0-9şğüöçı]\w)", Command)
             if (len(Komut) >= 1) and (not Komut[0] == ''):
                 Komut = Komut[0]
                 if Komut[0] == '^':
@@ -105,8 +111,8 @@ def extractCommands(file):
                             KomutStr = Command
                         Komutlar.append(KomutStr)
 
-            # DTOPY
-            Dtopy = re.search('\"\"\"DTOPY(.*)\"\"\"', FileRead, re.DOTALL)
+            # APEXPY
+            Dtopy = re.search('\"\"\"APEXPY(.*)\"\"\"', FileRead, re.DOTALL)
             if not Dtopy == None:
                 Dtopy = Dtopy.group(0)
                 for Satir in Dtopy.splitlines():
@@ -136,7 +142,8 @@ try:
 
     # ChromeDriver #
     try:
-        chromedriver_autoinstaller.install()
+        if chromedriver_autoinstaller:
+            chromedriver_autoinstaller.install()
     except:
         pass
     
@@ -155,35 +162,35 @@ try:
     from telethon import events
     from userbot.modules.db_backup import backup_db
     
-    @bot.on(events.NewMessage(outgoing=True, pattern=r"^\.dbbackup(?: |$)"))
+    @bot.on(events.NewMessage(outgoing=True))
     async def fallback_manual_backup(event):
         try:
-            msg = await event.edit("`DB backup hazırlanır... (Fallback)`")
-            from userbot import BOTLOG, BOTLOG_CHATID
-            if not BOTLOG:
-                return await msg.edit("`❌ Backup alınmadı: BOTLOG dəyişkəni False olaraq ayarlanmışdır.`\n`HuggingFace quraşdırmalarında BOTLOG=True olmalıdır.`")
-            if not BOTLOG_CHATID:
-                return await msg.edit("`❌ Backup alınmadı: BOTLOG_CHATID dəyişkəni yoxdur və ya səhvdir.`")
-                
-            result = await backup_db(event.client)
-            if result:
-                await msg.edit("`DB backup uğurla gönderildi! ✅`\n`Bax: BOTLOG qrupu`")
-            else:
-                await msg.edit("`DB backup göndərilə bilmədi! ❌ Ola bilər ki, botun BOTLOG qrupuna mesaj yazma icazəsi yoxdur.`")
+            cmd = str(event.raw_text).strip()
+            if cmd == ".dbbackup":
+                msg = await event.edit("`DB backup hazırlanır... (Fallback)`")
+                from userbot import BOTLOG, BOTLOG_CHATID
+                if not BOTLOG:
+                    return await msg.edit("`❌ Backup alınmadı: BOTLOG=True olmalıdır.`")
+                if not BOTLOG_CHATID:
+                    return await msg.edit("`❌ Backup alınmadı: BOTLOG_CHATID yoxdur.`")
+                    
+                result = await backup_db(event.client)
+                if result:
+                    await msg.edit("`DB backup uğurla gönderildi! ✅`\n`Bax: BOTLOG qrupu`")
+                else:
+                    await msg.edit("`❌ Göndərilə bilmədi!`")
+            elif cmd == ".dbrestore":
+                msg = await event.edit("`DB bərpa edilir... (Fallback)`")
+                result = await restore_db(event.client)
+                if result:
+                    await msg.edit("`DB uğurla bərpa edildi! ✅ Bot yenidən başladılmalıdır.`")
+                else:
+                    await msg.edit("`Heç bir backup tapılmadı! ❌`")
         except Exception as e:
-            await event.edit(f"`Xəta baş verdi: {e}`")
-
-    @bot.on(events.NewMessage(outgoing=True, pattern=r"^\.dbrestore(?: |$)"))
-    async def fallback_manual_restore(event):
-        try:
-            msg = await event.edit("`DB bərpa edilir... (Fallback)`")
-            result = await restore_db(event.client)
-            if result:
-                await msg.edit("`DB uğurla bərpa edildi! ✅ Bot yenidən başladılmalıdır.`")
-            else:
-                await msg.edit("`Heç bir backup tapılmadı! ❌`")
-        except Exception as e:
-            await event.edit(f"`Xəta baş verdi: {e}`")
+            try:
+                await event.edit(f"`Xəta baş verdi: {e}`")
+            except:
+                pass
     # -----------------------------------------------------------------------------------
     PLUGIN_MESAJLAR_TURLER = ["alive", "afk", "kickme", "pm", "dızcı", "ban", "mute", "approve", "disapprove", "block", "restart"]
     for mesaj in PLUGIN_MESAJLAR_TURLER:
@@ -206,7 +213,7 @@ try:
             KanalId = "me"
 
         for plugin in bot.iter_messages(KanalId, filter=InputMessagesFilterDocument):
-            if plugin.file.name and (len(plugin.file.name.split('.')) > 1) \
+            if plugin.file and plugin.file.name and (len(plugin.file.name.split('.')) > 1) \
                 and plugin.file.name.split('.')[-1] == 'py':
                 Split = plugin.file.name.split('.')
 
@@ -263,11 +270,14 @@ except Exception as e:
     LOGS.warning(f"db_backup yüklenemedi: {e}")
 
 for module_name in ALL_MODULES:
-    imported_module = import_module("userbot.modules." + module_name)
+    try:
+        imported_module = import_module("userbot.modules." + module_name)
+    except Exception as e:
+        LOGS.warning(f"Modul yüklənə bilmədi: {module_name} — {e}")
 
 LOGS.info("Botunuz işleyir! Her hansi bir söhbete .alive yazaraq Test edin."
-          " Yardıma ehtiyacınız varsa, Destek qrupumuza buyurun t.me/UseratorSUP")
-LOGS.info(f"Bot versiyası: 𝙰 𝙿 Σ 𝚇 {DTO_VERSION}")
+          " Yardıma ehtiyacınız varsa, Destek qrupumuza buyurun t.me/ApexSUP")
+LOGS.info(f"Bot versiyası: 𝙰 𝙿 Σ 𝚇 {APEX_VERSION}")
 
 # Avtomatik DB backup loop-unu başlat (hər 6 saat)
 import asyncio

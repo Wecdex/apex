@@ -27,7 +27,10 @@ class Warns(BASE):
                     and self.num_warn == other.num_warn)
 
 
-Warns.__table__.create(checkfirst=True)
+try:
+    Warns.__table__.create(bind=SESSION.get_bind(), checkfirst=True)
+except Exception:
+    pass
 
 KOMUT_INSERTION_LOCK = threading.RLock()
 

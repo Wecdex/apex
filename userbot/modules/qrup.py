@@ -80,7 +80,7 @@ async def banall(event):
         except Exception as e:
             await event.reply(str(e))
         await asyncio.sleep(0.3)
-    await event.edit(f"[[U S Σ R Δ T O R](t.me/UseratorOT)]:\n`BANALL prosesi tamamlandı`")
+    await event.edit(f"[[U S Σ R Δ T O R](t.me/ApexOT)]:\n`BANALL prosesi tamamlandı`")
 
 
 @register(outgoing=True, pattern="^.addmember ?(.*)", groups_only=True, disable_errors=True)
@@ -366,7 +366,7 @@ async def _(event):
                         f"__İstifadəçilər bandan çıxardılır...__\n\nHazırda `{succ}` hesab bandan çıxardılıb")
             except MessageNotModifiedError:
                 pass
-    await event.edit(f"[[U S Σ R Δ T O R](t.me/UseratorOT)]:\nUNBANALL prosesi tamamlandı\n`{chat.title}` **qrupunda** `{succ}/{total}` **istifadəçi bandan çıxardıldı**")
+    await event.edit(f"[[U S Σ R Δ T O R](t.me/ApexOT)]:\nUNBANALL prosesi tamamlandı\n`{chat.title}` **qrupunda** `{succ}/{total}` **istifadəçi bandan çıxardıldı**")
 
 
 Help = CmdHelp('qrup')

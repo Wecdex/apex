@@ -14,7 +14,10 @@ class KRead(BASE):
         self.groupid = str(sender)
 
 
-KRead.__table__.create(checkfirst=True)
+try:
+    KRead.__table__.create(bind=SESSION.get_bind(), checkfirst=True)
+except Exception:
+    pass
 
 
 def is_kread():

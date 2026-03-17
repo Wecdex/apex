@@ -16,7 +16,10 @@ class QuickPhrase(BASE):
         self.resp = str(resp)
 
 
-QuickPhrase.__table__.create(checkfirst=True)
+try:
+    QuickPhrase.__table__.create(bind=SESSION.get_bind(), checkfirst=True)
+except Exception:
+    pass
 
 
 def get_phrases(resp):

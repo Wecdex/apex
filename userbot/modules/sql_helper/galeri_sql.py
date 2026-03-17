@@ -24,7 +24,10 @@ class Galeri(BASE):
             and self.g_id == other.g_id)
 
 
-Galeri.__table__.create(checkfirst=True)
+try:
+    Galeri.__table__.create(bind=SESSION.get_bind(), checkfirst=True)
+except Exception:
+    pass
 
 KOMUT_INSERTION_LOCK = threading.RLock()
 TUM_GALERI = SESSION.query(Galeri).all()

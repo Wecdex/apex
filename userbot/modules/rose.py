@@ -15,9 +15,9 @@ async def fstat(event):
     if event.fwd_from:
         return
     if event.pattern_match.group(1):
-        dtoub = event.pattern_match.group(1)
+        fedarg = event.pattern_match.group(1)
     else:
-        dtoub = ""
+        fedarg = ""
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         replied_user = await event.client(
@@ -28,7 +28,7 @@ async def fstat(event):
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
-                await conv.send_message("/fedstat " + istifadeci + " " + dtoub)
+                await conv.send_message("/fedstat " + istifadeci + " " + fedarg)
                 await event.delete()
                 await event.client.send_message(event.chat_id, 'Yüklənir..')
                 await asyncio.sleep(5)
@@ -47,7 +47,7 @@ async def fstat(event):
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
-                await conv.send_message("/fedstat " + dtoub)
+                await conv.send_message("/fedstat " + fedarg)
                 await event.delete()
                 await event.client.send_message(event.chat_id, 'Yüklənir..')
                 await asyncio.sleep(5)
@@ -68,9 +68,9 @@ async def info(event):
     if event.fwd_from:
         return
     if event.pattern_match.group(1):
-        dtoub = event.pattern_match.group(1)
+        fedarg = event.pattern_match.group(1)
     else:
-        dtoub = ""
+        fedarg = ""
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         replied_user = await event.client(
@@ -92,7 +92,7 @@ async def info(event):
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
-                await conv.send_message("/info " + dtoub)
+                await conv.send_message("/info " + fedarg)
                 audio = await conv.get_response()
                 await event.client.forward_messages(event.chat_id, audio)
                 await event.delete()
@@ -104,8 +104,8 @@ async def info(event):
 async def fedinfo(event):
     if event.fwd_from:
         return
-    dtoub = event.pattern_match.group(1)
-    if dtoub == "" and not event.reply_to_msg_id:
+    fedarg = event.pattern_match.group(1)
+    if fedarg == "" and not event.reply_to_msg_id:
         async with event.client.conversation(chat) as conv:
             try:
                 await conv.send_message("/start")
@@ -121,7 +121,7 @@ async def fedinfo(event):
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
-                await conv.send_message("/fedinfo " + dtoub)
+                await conv.send_message("/fedinfo " + fedarg)
                 fedinfo = await conv.get_response()
                 await event.client.forward_messages(event.chat_id, fedinfo)
                 await event.delete()

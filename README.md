@@ -37,4 +37,28 @@ Space qurulacaq (2-3 dəqiqə). Sonra hər hansı söhbətə `.alive` yazın —
 
 ---
 
+## 💻 Lokal Test (Öz Kompyuterinizdə)
+
+HuggingFace-ə deploy etməzdən əvvəl botu öz kompyuterinizdə test edə bilərsiniz:
+
+### Windows üçün:
+
+1. **Konfiqurasiya faylı yaradın:**
+   ```bash
+   copy config.env.example config.env
+   ```
+   Sonra `config.env` faylını açıb dəyərləri doldurun (API_KEY, STRING_SESSION və s.)
+
+2. **Botu işə salın:**
+   - **PowerShell:** `.\run.ps1`
+   - **CMD:** `run.bat`
+
+3. **Test edin:**
+   - Bot `http://localhost:7860` ünvanında işləyəcək
+   - Telegram-da `.alive` əmrini yoxlayın
+
+**Qeyd:** Lokal test HuggingFace deploy-a mane olmur. Eyni konfiqurasiya hər iki yerdə işləyir!
+
+---
+
 **Dəstək:** [@apexsup](https://t.me/apexsup) | **Kanal:** [@apexuserbot](https://t.me/apexuserbot)

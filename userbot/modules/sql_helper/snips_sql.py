@@ -18,7 +18,10 @@ class Snips(BASE):
         self.f_mesg_id = f_mesg_id
 
 
-Snips.__table__.create(checkfirst=True)
+try:
+    Snips.__table__.create(bind=SESSION.get_bind(), checkfirst=True)
+except Exception:
+    pass
 
 
 def get_snip(keyword):

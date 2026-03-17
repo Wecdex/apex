@@ -24,7 +24,10 @@ class BlackListFilters(BASE):
                     and self.trigger == other.trigger)
 
 
-BlackListFilters.__table__.create(checkfirst=True)
+try:
+    BlackListFilters.__table__.create(bind=SESSION.get_bind(), checkfirst=True)
+except Exception:
+    pass
 
 BLACKLIST_FILTER_INSERTION_LOCK = threading.RLock()
 

@@ -34,7 +34,7 @@ LANG = get_value("song")
 
 # ████████████████████████████████ #
 
-@register(outgoing=True, pattern="^.deez(\d*|)(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^.deez(\d*|)(?: |$)(.*)")
 async def deezl(event):
     if event.fwd_from:
         return
@@ -78,7 +78,7 @@ async def deezl(event):
 
 @register(outgoing=True, pattern="^.song ?(.*)")
 @register(incoming=True, from_users=SUDO_ID, pattern="^.song ?(.*)")
-    # Ported from Ultroid for Userator
+    # Ported from Ultroid for Apex
 async def download_video(event):
     a = event.text
     if a[5] == "s":

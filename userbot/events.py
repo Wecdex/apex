@@ -72,11 +72,11 @@ def register(**args):
                 if not disable_errors:
                     date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
 
-                    dtotext = str(check.text)
+                    cmdtext = str(check.text)
                     text = "**✥ 𝙰 𝙿 Σ 𝚇 - ΣRROR ✥**\n\n"
                     link = "[𝙰 𝙿 Σ 𝚇 - Dəstək Qrupuna](https://t.me/apexsup)"
-                    if len(dtotext)<10:
-                        text += f"⌨️ **Əmr:** {dtotext}\n\n"
+                    if len(cmdtext)<10:
+                        text += f"⌨️ **Əmr:** {cmdtext}\n\n"
                     text += "**Xəta baş verdi ❗**\n"
                     text += f"**ℹ️ Bu log'u** {link} **göndərin.**"
                     text += "**Xətanın nə oluğunu öyrənin**\n"
@@ -106,7 +106,7 @@ def register(**args):
 
                     ftext += result
 
-                    file = open("ΣRROR.log", "w+")
+                    file = open("error.log", "w+", encoding="utf-8")
                     file.write(ftext)
                     file.close()
 
@@ -115,7 +115,7 @@ def register(**args):
                         \nXəta Günlükləri UserBot günlük qrupunda saxlanılır.`")
 
                     await check.client.send_file(send_to,
-                                                 "ΣRROR.log",
+                                                 "error.log",
                                                  caption=text)
                     remove("error.log")
             else:

@@ -22,7 +22,10 @@ class LydiaAI(BASE):
         self.session_expires = session_expires
 
 
-LydiaAI.__table__.create(checkfirst=True)
+try:
+    LydiaAI.__table__.create(bind=SESSION.get_bind(), checkfirst=True)
+except Exception:
+    pass
 
 
 def get_s(user_id, chat_id):

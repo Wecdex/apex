@@ -23,7 +23,10 @@ class FloodControl(BASE):
         return "<flood control for %s>" % self.chat_id
 
 
-FloodControl.__table__.create(checkfirst=True)
+try:
+    FloodControl.__table__.create(bind=SESSION.get_bind(), checkfirst=True)
+except Exception:
+    pass
 
 INSERTION_LOCK = threading.RLock()
 

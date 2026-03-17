@@ -20,7 +20,10 @@ class Goodbye(BASE):
         self.f_mesg_id = f_mesg_id
 
 
-Goodbye.__table__.create(checkfirst=True)
+try:
+    Goodbye.__table__.create(bind=SESSION.get_bind(), checkfirst=True)
+except Exception:
+    pass
 
 
 def get_goodbye(chat_id):

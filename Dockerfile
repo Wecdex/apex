@@ -1,8 +1,9 @@
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 # Sistem asılılıqları
 RUN apt-get update && apt-get install -y \
     git \
+    neofetch \
     ffmpeg \
     libcairo2-dev \
     && rm -rf /var/lib/apt/lists/*
@@ -10,15 +11,14 @@ RUN apt-get update && apt-get install -y \
 # İş qovluğu
 WORKDIR /app
 
-# Requirements
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
 # Bütün faylları kopyala
 COPY . .
+
+# Requirements
+RUN pip install --no-cache-dir -r requirements.txt || true
 
 # HuggingFace Spaces port 7860 gözləyir
 EXPOSE 7860
 
-# app.py ilə başlat (Flask + Bot)
-CMD ["python3", "app.py"]
+# Startup: git pull (yeniləmə), sonra app.py
+CMD ["bash", "-c", "git pull origin main 2>/dev/null || true; python3 app.py"]

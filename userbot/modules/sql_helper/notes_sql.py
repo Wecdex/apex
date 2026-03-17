@@ -19,7 +19,10 @@ class Notes(BASE):
         self.f_mesg_id = f_mesg_id
 
 
-Notes.__table__.create(checkfirst=True)
+try:
+    Notes.__table__.create(bind=SESSION.get_bind(), checkfirst=True)
+except Exception:
+    pass
 
 
 def get_note(chat_id, keyword):

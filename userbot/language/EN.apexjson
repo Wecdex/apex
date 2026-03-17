@@ -29,7 +29,7 @@
             "ALREADY_DELETED": "`The Plugin file has already deleted.`",
             "NOT_FOUND_PLUGIN": "`Maybe there was such a plugin, maybe there wasn't. But it's definitely not right now.`",
             "PLUG_DELETED": "`Plugin deleted successfully!` '**Restarting.**",
-            "DTO_PLUGIN_CAPTION": "This is a plugin of [U S Σ R Δ T O R](https://t.me/UseratorOT)."
+            "DTO_PLUGIN_CAPTION": "This is a plugin of [𝙰 𝙿 Σ 𝚇](https://t.me/apexuserbot)."
         },
         "__up": {
             "NEED_PLUGIN": "**❗️ Please enter the correct** `U S Σ R Δ T O R` **module name.**\n**ℹ️ If you want information about any plugin, make sure the plugin is installed.**",
@@ -213,8 +213,8 @@
             "EFECTING": "`Applying effect...`",
             "NOT_FOUND_EFECT": "**The effect you specified was not found! ** `Effects you can use:\" uşaq/robot/earrape/fast/interference/echo`",
             "NEED_VIDEO": "`Please reply to a Video!`",
-            "WITH_DTO": "`Effect applied with` @UseratorOT",
-            "WITH_DTO_GIF": "`Turned to Gif with` @UseratorOT",
+            "WITH_DTO": "`Effect applied with` 𝙰 𝙿 Σ 𝚇",
+            "WITH_DTO_GIF": "`Turned to Gif with` 𝙰 𝙿 Σ 𝚇",
             "CONVERTING_TO_GIF": "Turning to gif ...",
             "UPLOADING_GIF": "` Loading Gif ... `",
             "CV1": "Converts a sticker to a photo.",

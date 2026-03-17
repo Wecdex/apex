@@ -80,7 +80,7 @@ def MemeYap (Resim, Text, FontS = 40, Bottom = False, BottomText = None):
                 drawTextWithOutline(Bottom_Satirlar[i], x, y)
                 lastY = y
 
-    Foto.save("dtomeme.png")
+    Foto.save("apexmeme.png")
 
 @register(outgoing=True, pattern="^.sangmata(?: |$)(.*)")
 async def sangmata(event):
@@ -120,7 +120,7 @@ async def sangmata(event):
           await bot.send_read_acknowledge(chat, max_id=(response.id+3))
           await conv.cancel_all()
 
-@register(outgoing=True, pattern="^.meme ?((\d*)(.*))")
+@register(outgoing=True, pattern=r"^.meme ?((\d*)(.*))")
 async def memeyap(event):
     """ """
     font = event.pattern_match.group(2)
@@ -145,32 +145,32 @@ async def memeyap(event):
         if reply.photo:
             Resim = await reply.download_media()
         elif reply.sticker and reply.file.ext == ".webp":
-            if os.path.exists("./DtoSticker.png"):
-                os.remove("./DtoSticker.png")
+            if os.path.exists("./ApexSticker.png"):
+                os.remove("./ApexSticker.png")
 
             foto = await reply.download_media()
             im = Image.open(foto).convert("RGB")
-            im.save("DtoSticker.png", "png")
-            Resim = "DtoSticker.png"
+            im.save("ApexSticker.png", "png")
+            Resim = "ApexSticker.png"
         elif reply.sticker and reply.file.ext == ".tgs":
             sticker = await reply.download_media()
-            os.system(f"lottie_convert.py --frame 0 -if lottie -of png '{sticker}' DtoSticker.png")
+            os.system(f"lottie_convert.py --frame 0 -if lottie -of png '{sticker}' ApexSticker.png")
             os.remove(sticker)
-            Resim = "DtoSticker.png"
+            Resim = "ApexSticker.png"
         elif reply.media:
             Resim = await reply.download_media()
             Sure = os.system("ffmpeg -i '"+Resim+"' 2>&1 | grep Duration | awk '{print $2}' | tr -d , | awk -F ':' '{print ($3+$2*60+$1*3600)/2}'``")
-            os.system(f"ffmpeg -i '{Resim}' -vcodec mjpeg -vframes 1 -an -f rawvideo -ss {Sure} DtoThumb.jpg")
+            os.system(f"ffmpeg -i '{Resim}' -vcodec mjpeg -vframes 1 -an -f rawvideo -ss {Sure} ApexThumb.jpg")
             os.remove(Resim)
-            Resim = 'DtoThumb.jpg'
+            Resim = 'ApexThumb.jpg'
         else:
             return await event.edit(LANG['REPLY_TO_MEME'])
             
-        if os.path.exists("./dtomeme.png"):
-            os.remove("./dtomeme.png")
+        if os.path.exists("./apexmeme.png"):
+            os.remove("./apexmeme.png")
 
         MemeYap(Resim, Text, font, Bottom, BottomText)
-        await event.client.send_file(event.chat_id, "./dtomeme.png", reply_to=reply)
+        await event.client.send_file(event.chat_id, "./apexmeme.png", reply_to=reply)
         await event.delete()
         os.remove(Resim)
     else:

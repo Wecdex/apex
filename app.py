@@ -7,6 +7,13 @@ import threading
 import subprocess
 import sys
 import os
+
+try:
+    from dotenv import load_dotenv
+    load_dotenv("config.env")
+except ImportError:
+    pass
+
 from flask import Flask
 
 app = Flask(__name__)

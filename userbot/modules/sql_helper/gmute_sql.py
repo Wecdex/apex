@@ -14,7 +14,10 @@ class GMute(BASE):
         self.sender = str(sender)
 
 
-GMute.__table__.create(checkfirst=True)
+try:
+    GMute.__table__.create(bind=SESSION.get_bind(), checkfirst=True)
+except Exception:
+    pass
 
 
 def is_gmuted(sender_id):

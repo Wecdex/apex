@@ -41,7 +41,7 @@ async def asci(event):
             await event.client.send_file(
                 event.chat_id,
                 response.message.media,
-                caption=f"@UseratorOT 🐍",
+                caption=f"@ApexOT 🐍",
             )
             await event.client.send_read_acknowledge(conv.chat_id)
 
@@ -82,7 +82,7 @@ async def line(event):
             await event.client.send_file(
                 event.chat_id,
                 response.message.media,
-                caption=f"@UseratorOT 🐍",
+                caption=f"@ApexOT 🐍",
             )
             await event.client.send_read_acknowledge(conv.chat_id)
 
@@ -123,7 +123,7 @@ async def colorizer(event):
             await event.client.send_file(
                 event.chat_id,
                 response.message.media,
-                caption=f"@UseratorOT 🐍",
+                caption=f"@ApexOT 🐍",
             )
             await event.client.send_read_acknowledge(conv.chat_id)
 
@@ -164,7 +164,7 @@ async def picture(event):
             await event.client.send_file(
                 event.chat_id,
                 response.message.media,
-                caption=f"@UseratorOT 🐍",
+                caption=f"@ApexOT 🐍",
             )
             await event.client.send_read_acknowledge(conv.chat_id)
 
