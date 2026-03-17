@@ -35,8 +35,8 @@ from huggingface_hub import HfApi
 # ==========================================
 # KONFIQURASIYA
 # ==========================================
-BOT_TOKEN = os.environ.get("SETUP_BOT_TOKEN", "8782606935:AAFLSzPjj5Fp5WQG0X2Dd7lSiLbdWzfOQiU")
-GITHUB_REPO = os.environ.get("GITHUB_REPO", "https://github.com/Wecdex/apex")
+BOT_TOKEN = os.environ.get("SETUP_BOT_TOKEN", "8627242727:AAF97myd1Yfw6PBK27u-Gu3s-3v43JfpCRs")
+GITHUB_REPO = os.environ.get("GITHUB_REPO", "https://github.com/sahibziko/delta")
 
 logging.basicConfig(
     format="%(asctime)s - APEX Setup - %(levelname)s - %(message)s",
