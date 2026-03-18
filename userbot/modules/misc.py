@@ -80,14 +80,27 @@ async def shutdown(event):
 @register(outgoing=True, pattern="^.stop$")
 @register(incoming=True, from_users=SUDO_ID, pattern="^.restart$")
 async def restart(event):
-    await event.edit(PLUGIN_MESAJLAR['restart'])
+    await event.edit("`🔄 Bot yenidən başladılır...`")
+
+    # Restart-dan əvvəl DB backup al
+    try:
+        from userbot.modules.db_backup import backup_db
+        await backup_db(event.client)
+    except Exception:
+        pass
+
     if BOTLOG:
-        await event.client.send_message(BOTLOG_CHATID, "#RESTART \n"
-                                        "Bot yenidən başladıldı.")
+        try:
+            await event.client.send_message(
+                BOTLOG_CHATID,
+                "#RESTART \nBot yenidən başladıldı."
+            )
+        except Exception:
+            pass
 
     try:
         await bot.disconnect()
-    except:
+    except Exception:
         pass
 
     execl(sys.executable, sys.executable, *sys.argv)

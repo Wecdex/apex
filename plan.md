@@ -34,6 +34,20 @@
 - `.apex <ad>` — modul/plugin haqqında ətraflı məlumat
 - `.apex <söz>` — təxmini axtarış (tam ad yazmağa ehtiyac yox)
 
+### deyisdir.py — Tam yenidən yazıldı
+- `.set` / `.deyisdir` / `.change` — sadə sintaksis, **tırnaq lazım deyil!**
+- `.set` (boş) — bütün dəyişdirə biləcəyin mesajları + cari dəyərlərini göstərir
+- `.set alive Salam dünya!` — birbaşa text ilə dəyişdir
+- `.set afk` + reply — media və ya text ilə dəyişdir
+- `.set alive` (tək) — cari dəyəri göstərir + istifadə təlimatı
+- `.reset alive` — orijinala qaytar, `.reset all` — hamısını sıfırla
+- 11 dəyişdirə bilən mesaj tipi: alive, afk, pm, kickme, ban, mute, approve, disapprove, block, restart, dızcı
+- Bütün dəyişikliklər SQLite DB-də saxlanır — restart/space sönmə sonrası itmir
+
+### misc.py — .restart düzəldildi
+- Restart-dan əvvəl avtomatik DB backup alır
+- BOTLOG mesajı try/except ilə qorunur
+
 ## ⚠️ Nəzərə Alınmalı
 - `__plugin.py` pinstall-da `return os.remove(...)` — None qaytarır, funksional deyil amma pis stil
 - db_backup.py BOTLOG deaktivdirsə backup/restore işləmir (dizayna uyğundur)
