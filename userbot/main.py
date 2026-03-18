@@ -175,7 +175,7 @@ try:
                 PLUGIN_MESAJLAR[mesaj] = medya
             else:
                 PLUGIN_MESAJLAR[mesaj] = dmsj
-    if not PLUGIN_CHANNEL_ID == None:
+    if PLUGIN_CHANNEL_ID is not None:
         LOGS.info("Pluginlər Yüklənir")
         try:
             KanalId = bot.get_entity(PLUGIN_CHANNEL_ID)

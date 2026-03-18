@@ -122,18 +122,21 @@ async def pport(event):
 
 @register(outgoing=True, pattern="^.plist")
 async def plist(event):
-    if PLUGIN_CHANNEL_ID != None:
+    if PLUGIN_CHANNEL_ID:
         await event.edit(LANG["PLIST_CHECKING"])
         yuklenen = f"{LANG['PLIST']}\n\n"
-        async for plugin in event.client.iter_messages(PLUGIN_CHANNEL_ID, filter=InputMessagesFilterDocument):
-            try:
-                dosyaismi = plugin.file.name.split(".")[1]
-            except:
-                continue
-
-            if dosyaismi == "py":
-                yuklenen += f"✨ {plugin.file.name}\n"
-        await event.edit(yuklenen)
+        count = 0
+        async for plugin in event.client.iter_messages(PLUGIN_CHANNEL_ID, filter=InputMessagesFilterDocument, limit=100):
+            if plugin.file and plugin.file.name:
+                ext = plugin.file.name.split(".")[-1].lower()
+                if ext == "py":
+                    yuklenen += f"✨ {plugin.file.name}\n"
+                    count += 1
+        
+        if count == 0:
+            await event.edit(f"{LANG['PLIST']}\n\n`Heç bir plugin tapılmadı.`")
+        else:
+            await event.edit(yuklenen)
     else:
         await event.edit(LANG["TEMP_PLUGIN"])
 
@@ -175,6 +178,7 @@ async def pinstall(event):
             CMD_HELP["tgbot_" + komut] = f"{LANG['PLUGIN_DESC']} {komut}"
             komutlar += komut + " "
             i += 1
+        await plugin.forward_to(PLUGIN_CHANNEL_ID)
         await event.edit(LANG['PLUGIN_DOWNLOADED'] % komutlar)
     else:
         Pattern = re.findall(r"@register\(.*pattern=(r|)\"(.*)\".*\)", dosy)

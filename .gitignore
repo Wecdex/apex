@@ -77,3 +77,6 @@ silinecek/
 
 # Setup bot (yalnız HuggingFace Space-ə yüklənir)
 setup_bot/
+
+# Şəxsi plugin qovluğu (GitHub-a yüklənmir)
+plugfinler/

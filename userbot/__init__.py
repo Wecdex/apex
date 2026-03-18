@@ -414,7 +414,7 @@ Hesabınızı bot'a çevirə bilərsiz və bunları işlədə bilərsiz. Unutmay
                         [custom.Button.url("Kanala Qatıl", "https://t.me/apexuserbot"), custom.Button.url(
                             "Qrupa Qatıl", "https://t.me/apexsup")],
                         [custom.Button.url(
-                            "GitHub", "https://github.com/sahibziko/delta")]
+                            "GitHub", "https://github.com/Wecdex/apex")]
                     ],
                     link_preview=False
                 )

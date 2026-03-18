@@ -14,7 +14,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from userbot import BOT_USERNAME
+from userbot import BOT_USERNAME, CMD_HELP, PATTERNS
 from userbot.events import register
 
 # ██████ LANGUAGE CONSTANTS ██████ #
@@ -28,15 +28,36 @@ LANG = get_value("__helpme")
 async def yardim(event):
     tgbotusername = BOT_USERNAME
     if tgbotusername is not None:
-        results = await event.client.inline_query(
-            tgbotusername,
-            "@ApexUserbot"
-        )
-        await results[0].click(
-            event.chat_id,
-            reply_to=event.reply_to_msg_id,
-            hide_via=True
-        )
-        await event.delete()
-    else:
-        await event.edit(LANG["NO_BOT"])
+        try:
+            results = await event.client.inline_query(
+                tgbotusername,
+                "@ApexUserbot"
+            )
+            await results[0].click(
+                event.chat_id,
+                reply_to=event.reply_to_msg_id,
+                hide_via=True
+            )
+            await event.delete()
+            return
+        except Exception:
+            pass
+
+    # Inline bot yoxdursa və ya işləmirsə — text-based help
+    modules = sorted([m for m in CMD_HELP if not m.startswith("_")])
+    total = len(modules)
+
+    text = (
+        "**✥ 𝙰 𝙿 Σ 𝚇 — Yardım ✥**\n\n"
+        f"📦 **Yüklənən modul sayı:** `{total}`\n\n"
+    )
+
+    for i in range(0, len(modules), 3):
+        row = modules[i:i+3]
+        text += "  ".join(f"`{m}`" for m in row) + "\n"
+
+    text += (
+        f"\n💡 **İstifadə:** `{PATTERNS[:1]}apex <modul adı>`\n"
+        f"📖 **Məsələn:** `{PATTERNS[:1]}apex gsave`"
+    )
+    await event.edit(text)
