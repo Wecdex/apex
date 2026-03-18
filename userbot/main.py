@@ -158,40 +158,10 @@ try:
     PLUGIN_MESAJLAR = {}
     ORJ_PLUGIN_MESAJLAR = {"alive": "`𝙰 𝙿 Σ 𝚇 ✨ - 𝓤𝓼𝓮𝓻𝓫𝓸𝓽 𝓐𝓴𝓽𝓲𝓿𝓭𝓲𝓻!`", "afk": f"`{str(choice(AFKSTR))}`", "kickme": "`Bye-bye mən qrupdan çıxdım 🥰`", "pm": UNAPPROVED_MSG, "dızcı": str(choice(DIZCILIK_STR)), "ban": "{mention}`, banlandı!`", "mute": "{mention}`, susduruldu!`", "approve": "{mention}`, mənə mesaj göndərə bilərsən!`", "disapprove": "{mention}`, artıq mənə mesaj göndərə bilmərsən!`", "block": "{mention}`, bloklandın!`", "restart": "`𝙰 𝙿 Σ 𝚇 - yenidən başladılır...`"}
 
-    # --- Fallback DB Backup sistemi (Modul kimi işləməyəndə birbaşa buradan oxuyacaq) ---
-    from telethon import events
-    from userbot.modules.db_backup import backup_db
+    # --- DB Backup Sistemi Artıq db_backup.py Modulu ilə idarə olunur ---
+    from userbot.modules.db_backup import backup_db, restore_db
     
-    @bot.on(events.NewMessage(outgoing=True))
-    async def fallback_manual_backup(event):
-        try:
-            cmd = str(event.raw_text).strip()
-            if cmd == ".dbbackup":
-                msg = await event.edit("`DB backup hazırlanır... (Fallback)`")
-                from userbot import BOTLOG, BOTLOG_CHATID
-                if not BOTLOG:
-                    return await msg.edit("`❌ Backup alınmadı: BOTLOG=True olmalıdır.`")
-                if not BOTLOG_CHATID:
-                    return await msg.edit("`❌ Backup alınmadı: BOTLOG_CHATID yoxdur.`")
-                    
-                result = await backup_db(event.client)
-                if result:
-                    await msg.edit("`DB backup uğurla gönderildi! ✅`\n`Bax: BOTLOG qrupu`")
-                else:
-                    await msg.edit("`❌ Göndərilə bilmədi!`")
-            elif cmd == ".dbrestore":
-                msg = await event.edit("`DB bərpa edilir... (Fallback)`")
-                result = await restore_db(event.client)
-                if result:
-                    await msg.edit("`DB uğurla bərpa edildi! ✅ Bot yenidən başladılmalıdır.`")
-                else:
-                    await msg.edit("`Heç bir backup tapılmadı! ❌`")
-        except Exception as e:
-            try:
-                await event.edit(f"`Xəta baş verdi: {e}`")
-            except:
-                pass
-    # -----------------------------------------------------------------------------------
+    # Köməkçi: main.py-da saxladığımız digər işlər davam edir...
     PLUGIN_MESAJLAR_TURLER = ["alive", "afk", "kickme", "pm", "dızcı", "ban", "mute", "approve", "disapprove", "block", "restart"]
     for mesaj in PLUGIN_MESAJLAR_TURLER:
         dmsj = MSJ_SQL.getir_mesaj(mesaj)

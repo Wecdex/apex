@@ -75,9 +75,9 @@ async def backup_db(client):
 
 
 async def auto_backup_loop(client):
-    """Hər 6 saatda avtomatik backup göndərir."""
+    """Hər 1 saatdan bir avtomatik backup göndərir."""
     while True:
-        await asyncio.sleep(6 * 60 * 60)  # 6 saat
+        await asyncio.sleep(1 * 60 * 60)  # 1 saat
         result = await backup_db(client)
         if result:
             LOGS.info("Avtomatik DB backup göndərildi ✅")
@@ -118,6 +118,6 @@ CMD_HELP["db_backup"] = """
 `.dbbackup` — Database-i BOTLOG qrupuna backup edir
 `.dbrestore` — BOTLOG qrupundan son backup-ı bərpa edir
 
-ℹ️ Bot avtomatik olaraq hər 6 saatda backup göndərir.
+ℹ️ Bot avtomatik olaraq hər 1 saatdan bir backup göndərir.
 ℹ️ Bot restart olduqda son backup-dan data bərpa olunur.
 """
