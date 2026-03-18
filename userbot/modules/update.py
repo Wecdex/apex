@@ -123,71 +123,22 @@ async def update_bot(event):
         # DB backup al
         try:
             from userbot.modules.db_backup import backup_db
-            backup_ok = await backup_db(event.client)
-            if backup_ok:
-                await event.edit("`✅ DB backup alındı.\n⬇️ Yenilikler yüklənir...`")
+            await backup_db(event.client)
         except Exception:
             pass
 
-        # HuggingFace Space restart (əgər HF-dədirsə)
-        if HF_TOKEN and HF_SPACE_ID:
-            try:
-                from huggingface_hub import HfApi
-                api = HfApi(token=HF_TOKEN)
-                api.restart_space(HF_SPACE_ID)
-
-                return await event.edit(
-                    "✅ **Yeniləmə başladı!**\n\n"
-                    "🔄 HF Space restart edilir...\n"
-                    "⬇️ Git pull ilə son kod çəkiləcək.\n"
-                    "💾 DB backup-dan bərpa olunacaq.\n\n"
-                    "⏱ Bot **2-3 dəqiqə** ərzində yenidən aktivləşəcək."
-                )
-            except Exception as e:
-                LOGS.error(f"HF Space restart xətası: {e}")
-                await event.edit(
-                    f"`⚠️ HF Space restart xətası: {e}`\n"
-                    "`Git pull ilə birbaşa yeniləməyə çalışıram...`"
-                )
-
-        # Birbaşa git pull (local və ya HF xətası halında)
-        _ensure_remote()
-        code, out, err = _run_git("git pull upstream main --rebase")
-        if code != 0:
-            code, out, err = _run_git("git pull origin main --rebase")
-
-        if code != 0:
-            # Force pull
-            code, out, err = _run_git("git fetch origin main && git reset --hard origin/main")
-
-        if code != 0:
-            return await event.edit(
-                f"❌ **Git pull xətası:**\n`{err[:300]}`\n\n"
-                f"Manual yeniləmə: HF Space-i restart edin."
-            )
-
-        # Restart
         await event.edit(
-            "✅ **Yenilikler yükləndi!**\n\n"
-            f"```{out[:300]}```\n\n"
-            "🔄 Bot yenidən başladılır..."
+            "✅ **Yeniləmə başlayır!**\n\n"
+            "⬇️ Git pull ilə son kod çəkiləcək.\n"
+            "💾 DB backup-dan bərpa olunacaq.\n\n"
+            "🔄 Bot **3-5 saniyə** ərzində yenidən aktivləşəcək."
         )
 
         import asyncio as _asyncio
         await _asyncio.sleep(1)
 
-        # HF Space-dədirsə os._exit(0)
-        if os.environ.get("SPACE_ID") or os.environ.get("HF_SPACE_ID"):
-            os._exit(0)
-        else:
-            # Local-da execl ilə restart
-            import sys
-            from os import execl as _execl
-            try:
-                await event.client.disconnect()
-            except Exception:
-                pass
-            _execl(sys.executable, sys.executable, *sys.argv)
+        # Bot prosesini dayandır — app.py git pull edib yenidən başladacaq
+        os._exit(0)
 
     else:
         return await event.edit(

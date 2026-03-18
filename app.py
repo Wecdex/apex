@@ -154,11 +154,39 @@ def health():
     return "OK", 200
 
 def run_bot():
-    """Botu ayrı prosesdə başlat"""
+    """Botu ayrı prosesdə başlat — crash/restart olsa yenidən başlat."""
+    import time
     global BOT_RUNNING
-    BOT_RUNNING = True
-    subprocess.run([sys.executable, "main.py"])
-    BOT_RUNNING = False
+
+    while True:
+        # Hər başlanğıcda GitHub-dan yenilikləri çək
+        try:
+            subprocess.run(
+                ["git", "pull", "origin", "main"],
+                capture_output=True, timeout=30
+            )
+        except Exception:
+            pass
+
+        BOT_RUNNING = True
+        try:
+            result = subprocess.run([sys.executable, "main.py"])
+            exit_code = result.returncode
+        except Exception:
+            exit_code = 1
+
+        BOT_RUNNING = False
+
+        # Bot prosesi dayandı — yenidən başlat
+        if exit_code == 0:
+            # .restart və ya .update now — normal restart
+            print(f"[app.py] Bot prosesi dayandı (kod: {exit_code}). 3 saniyə sonra yenidən başladılır...")
+            time.sleep(3)
+        else:
+            # Crash — 5 saniyə gözlə, sonra restart
+            print(f"[app.py] Bot prosesi crash etdi (kod: {exit_code}). 5 saniyə sonra yenidən başladılır...")
+            time.sleep(5)
+
 
 if __name__ == "__main__":
     # Konfiqurasiya varsa botu başlat
