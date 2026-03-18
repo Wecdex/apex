@@ -48,6 +48,14 @@
 - Restart-dan əvvəl avtomatik DB backup alır
 - BOTLOG mesajı try/except ilə qorunur
 
+### update.py — Tam yenidən yazıldı
+- `.update` — GitHub-dan yenilikləri yoxlayır, changelog göstərir (commit siyahısı + dəyişən fayllar)
+- `.update now` — yenilikləri yüklə + bot restart (HF Space və ya local)
+- Restart-dan əvvəl avtomatik DB backup
+- HF Space varsa → Space restart (Dockerfile-dakı git pull işə düşür)
+- HF yoxdursa → birbaşa git pull + execl restart
+- upstream/origin fallback — git remote avtomatik idarə olunur
+
 ## ⚠️ Nəzərə Alınmalı
 - `__plugin.py` pinstall-da `return os.remove(...)` — None qaytarır, funksional deyil amma pis stil
 - db_backup.py BOTLOG deaktivdirsə backup/restore işləmir (dizayna uyğundur)
