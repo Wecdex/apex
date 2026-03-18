@@ -1,6 +1,7 @@
 # U S Σ R Δ T O R / Ümüd
 #.
 import sys
+import asyncio
 from asyncio import create_subprocess_shell as asyncsubshell
 from asyncio import subprocess as asyncsub
 from os import remove
@@ -68,6 +69,8 @@ def register(**args):
                 raise events.StopPropagation
             except KeyboardInterrupt:
                 pass
+            except (ConnectionError, asyncio.CancelledError):
+                return
             except BaseException:
                 if not disable_errors:
                     date = strftime("%Y-%m-%d %H:%M:%S", gmtime())

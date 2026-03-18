@@ -80,6 +80,9 @@ async def shutdown(event):
 @register(outgoing=True, pattern="^.stop$")
 @register(incoming=True, from_users=SUDO_ID, pattern="^.restart$")
 async def restart(event):
+    import os as _os
+    from asyncio import sleep as _sleep
+
     await event.edit("`🔄 Bot yenidən başladılır...`")
 
     # Restart-dan əvvəl DB backup al
@@ -98,12 +101,19 @@ async def restart(event):
         except Exception:
             pass
 
-    try:
-        await bot.disconnect()
-    except Exception:
-        pass
+    # Mesajın göndərilməsi üçün qısa gözləmə
+    await _sleep(1)
 
-    execl(sys.executable, sys.executable, *sys.argv)
+    # HF Space-dədirsə os._exit(0) — Docker restart policy botu yenidən başladacaq
+    if _os.environ.get("SPACE_ID") or _os.environ.get("HF_SPACE_ID"):
+        _os._exit(0)
+    else:
+        # Local-da execl ilə restart
+        try:
+            await bot.disconnect()
+        except Exception:
+            pass
+        execl(sys.executable, sys.executable, *sys.argv)
 
 
 @register(outgoing=True, pattern="^.support$")

@@ -173,14 +173,21 @@ async def update_bot(event):
             "🔄 Bot yenidən başladılır..."
         )
 
-        # Restart bot
-        try:
-            from os import execl
+        import asyncio as _asyncio
+        await _asyncio.sleep(1)
+
+        # HF Space-dədirsə os._exit(0)
+        if os.environ.get("SPACE_ID") or os.environ.get("HF_SPACE_ID"):
+            os._exit(0)
+        else:
+            # Local-da execl ilə restart
             import sys
-            await event.client.disconnect()
-            execl(sys.executable, sys.executable, *sys.argv)
-        except Exception as e:
-            return await event.edit(f"⚠️ Restart xətası: `{e}`\nBotu manual restart edin.")
+            from os import execl as _execl
+            try:
+                await event.client.disconnect()
+            except Exception:
+                pass
+            _execl(sys.executable, sys.executable, *sys.argv)
 
     else:
         return await event.edit(

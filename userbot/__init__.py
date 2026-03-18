@@ -77,6 +77,7 @@ if not LANGUAGE in ["EN", "TR", "AZ", "UZ", "DEFAULT"]:
     
 # APEX Versiyası
 APEX_VERSION = "3.1"
+DTO_VERSION = APEX_VERSION
 
 # Telegram API KEY ve HASH
 _api_key_raw = os.environ.get("API_KEY", None)
